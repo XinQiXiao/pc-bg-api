@@ -12,12 +12,12 @@ router.post('/', function(req, res){
 })
 
 // use put
-app.put('/user', function (req, res) {
+router.put('/user', function (req, res) {
   res.send('Got a PUT request at /user')
 })
 
 // use delete
-app.delete('/user', function (req, res) {
+router.delete('/user', function (req, res) {
   res.send('Got a DELETE request at /user')
 })
 

@@ -12,3 +12,8 @@
 	2. In chrome type localhost:3000
 
 # branch and target
+		t0.0.1 按 am-tool-api 修改 bin 文件
+			babel 配置
+				安装
+				babel-cli 
+				babel-polyfill
