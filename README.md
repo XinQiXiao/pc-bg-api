@@ -17,3 +17,9 @@
 				安装
 				babel-cli 
 				babel-polyfill
+				安装
+				babel-preset-es2015
+				babel-preset-react
+				babel-preset-stage-0
+				babel-plugin-transform-decorators-legacy
+			配置 babelrc
