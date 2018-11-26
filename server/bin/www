@@ -7,8 +7,9 @@ require('babel-core/register')
 require('babel-polyfill')
 
 var app = require('../app');
-var debug = require('debug')('pc-bg-api:server');
+// var debug = require('debug')('pc-bg-api:server');
 var http = require('http');
+const {info} = require('../debug')('server')
 
 /**
  * Get port from environment and store in Express.
@@ -88,5 +89,5 @@ function onListening() {
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
-  debug('Listening on ' + bind);
+  info('Listening on ' + bind);
 }

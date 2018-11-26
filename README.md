@@ -23,3 +23,6 @@
 				babel-preset-stage-0
 				babel-plugin-transform-decorators-legacy
 			配置 babelrc
+
+		t0.0.2 debug
+			debug util create
