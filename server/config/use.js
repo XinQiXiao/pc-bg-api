@@ -2,7 +2,7 @@
 import router from './routes'
 
 const myLogger = (req, res, next)=>{
-	console.log('app middle LOGGED')
+	console.log('app middle LOGGED .')
   next()
 }
 
@@ -19,7 +19,7 @@ module.exports = function(app){
 	
 	// catch 404 and forward to error handler
 	app.use(function(req, res, next) {
-		var err = new Error('Not Found');
+		var err = new Error('Not Found!!');
 		err.status = 404;
 		next(err);
 	});

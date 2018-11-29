@@ -29,3 +29,10 @@
 
 		t0.0.3 项目config 
 			项目 config配置
+
+		t0.0.4 bin 配置reload 热加载
+			安装 reload
+			TODO reload (功能有待调查)
+
+			code  热加载 supervisor
+			安装 supervisor

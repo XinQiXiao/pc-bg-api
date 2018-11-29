@@ -4,6 +4,6 @@ var use = require('./config/use')
 
 var app = express();
 
-use(app)
+use(app);
 
 module.exports = app

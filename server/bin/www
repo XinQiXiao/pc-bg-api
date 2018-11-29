@@ -25,6 +25,13 @@ app.set('port', port);
 
 var server = http.createServer(app);
 
+// for dev
+if(globalConfig.isDev){
+  // TODO 没看到效果 暂时屏蔽
+  // var reload = require('reload')
+  // reload(app)
+}
+
 /**
  * Listen on provided port, on all network interfaces.
  */
