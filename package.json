@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "server-dev": "DEBUG=*,-babel,-express:* NODE_ENV=development supervisor -w 'server' ./server/bin/www",
-    "server-start": "NODE_ENV=development NODE_PORT=8094 node ./server/bin/www"
+    "server-start": "NODE_ENV=development NODE_PORT=8095 node ./server/bin/www"
   },
   "dependencies": {
     "babel-cli": "^6.26.0",

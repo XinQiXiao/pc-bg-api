@@ -36,3 +36,12 @@
 
 			code  热加载 supervisor
 			安装 supervisor
+
+		t0.0.5 config use
+			a. request info
+			b. morgan
+				https://github.com/expressjs/morgan
+				Predefined Formats for 'dev'
+			c. body-parser
+				https://github.com/expressjs/body-parser
+			d. cookie-parser

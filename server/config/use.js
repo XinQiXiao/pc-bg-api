@@ -1,19 +1,26 @@
 
+import logger from 'morgan'
+import bodyParser from 'body-parser'
+import cookieParser from 'cookie-parser'
+
 import router from './routes'
+import debug from '../debug'
 
-const myLogger = (req, res, next)=>{
-	console.log('app middle LOGGED .')
-  next()
-}
-
-const requestTime = (req, res, next)=>{
-	req.requestTime = Date.now()
-  next()
-}
+// const
+const { info } = debug('request')
 
 module.exports = function(app){
-	app.use(myLogger)
-	app.use(requestTime)
+	app.use((req, res, next)=>{
+		info('==================== Request Info ====================')
+		info(`begin request ${req.path}`)
+		next()
+	})
+
+	app.use(logger('dev'))
+
+	app.use(bodyParser.json({strict: false}))
+	app.use(bodyParser.urlencoded({extended: false}))
+	app.use(cookieParser())
 
 	app.use('/', router)
 	

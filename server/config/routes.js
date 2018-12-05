@@ -2,12 +2,6 @@ import express from 'express'
 
 let router = express.Router()
 
-// a middleware function with no mount path. This code is executed for every request to the router
-router.use(function (req, res, next) {
-  console.log('Time:', Date.now())
-  next()
-})
-
 // a middleware sub-stack shows request info for any type of HTTP request to the /user/:id path
 router.use('/user/:id', function (req, res, next) {
   console.log('Request URL:', req.originalUrl)
