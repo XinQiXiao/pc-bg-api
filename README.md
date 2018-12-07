@@ -37,7 +37,7 @@
 			code  热加载 supervisor
 			安装 supervisor
 
-		t0.0.5 config use
+		t0.0.5 config/use
 			a. request info
 			b. morgan
 				https://github.com/expressjs/morgan
@@ -45,3 +45,14 @@
 			c. body-parser
 				https://github.com/expressjs/body-parser
 			d. cookie-parser
+			e. express.static TODO 需要研究
+			f. requestPrepare diddlewares
+			g. 补充 get / post 例子
+			h. requestPrepare
+			i. yargs 
+				https://github.com/yargs/yargs
+				http://www.cnblogs.com/bymax/p/5748662.html
+			j. debugPrepare 浏览器跨域问题
+
+		t0.0.5.1 use initLoginUser
+			

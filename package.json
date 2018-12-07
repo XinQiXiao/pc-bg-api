@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "server-dev": "DEBUG=*,-babel,-express:* NODE_ENV=development supervisor -w 'server' ./server/bin/www",
+    "server-dev": "DEBUG=*,-babel,-express:* NODE_ENV=development supervisor -w 'server' -- -r 'babel-register' ./server/bin/www --inline --hot",
+    "server-prd": "DEBUG=*,-babel,-express:* NODE_ENV=production supervisor -w 'server' -- -r 'babel-register' ./server/bin/www",
     "server-start": "NODE_ENV=development NODE_PORT=8095 node ./server/bin/www"
   },
   "dependencies": {
@@ -17,9 +18,11 @@
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.3",
     "express": "~4.15.2",
+    "lodash": "^4.17.11",
     "morgan": "~1.8.1",
     "serve-favicon": "~2.4.2",
-    "supervisor": "^0.12.0"
+    "supervisor": "^0.12.0",
+    "yargs": "^12.0.5"
   },
   "devDependencies": {
     "reload": "^2.3.1"
