@@ -8,7 +8,8 @@ import { argv } from 'yargs'
 
 import router from './routes'
 import debug from '../debug'
-import { requestPrepare, debugPrepare, } from '../core/middleware'
+import { requestPrepare, debugPrepare, initLoginUser,} from '../core/middleware'
+import { tokenService, authService, } from '../service'
 
 import globalConfig from '../config'
 
@@ -36,6 +37,8 @@ module.exports = function(app){
 	if(argv.inline && argv.hot){
 		app.all('*', debugPrepare(globalConfig.allow))
 	}
+
+	app.use(initLoginUser(()=> 'auth', ()=> 'token'))
 
 	// app.use('/', router)
 	

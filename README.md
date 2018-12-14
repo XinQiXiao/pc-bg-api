@@ -54,5 +54,18 @@
 				http://www.cnblogs.com/bymax/p/5748662.html
 			j. debugPrepare 浏览器跨域问题
 
-		t0.0.5.1 use initLoginUser
-			
+		t0.0.6 use initLoginUser middleware
+			a. server/service
+				I. core lib
+					TokenService (token信息加解密)（加密：userInfo => token, 解密: token => userInfo）
+					Authservice
+
+			b.sequelize
+				I. core/models
+					安装 sequelize / mysql2
+						https://github.com/sequelize/sequelize
+				II. core/models/sequelize
+					connection
+						createDatabase 
+						测试是否连接成功
+					TODO -> 生成model
