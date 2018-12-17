@@ -72,6 +72,7 @@ function connection(config, database){
 
 function init(config){
 	connection(config, 'book')
+	connection(config, 'auth')
 }
 
 export {

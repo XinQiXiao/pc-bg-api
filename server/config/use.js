@@ -38,7 +38,7 @@ module.exports = function(app){
 		app.all('*', debugPrepare(globalConfig.allow))
 	}
 
-	app.use(initLoginUser(()=> 'auth', ()=> 'token'))
+	app.use(initLoginUser(authService, tokenService))
 
 	// app.use('/', router)
 	

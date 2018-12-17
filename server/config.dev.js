@@ -24,6 +24,22 @@ const devConfig = {
 		database: 'book',
 		user: 'root',
 		password: 'Start2015'
+	},
+
+	auth: {
+		dialect: 'mysql',
+		benchmark: true,
+		pool: {
+			acquire: 3 * SEC,
+			evict: 10.1 * SEC,
+			idle: 30 * SEC,
+			max: 1,
+			min: 0,
+		},
+		host: '127.0.0.1',
+		database: 'admin_auth',
+		user: 'root',
+		password: 'Start2015'
 	}
 }
 

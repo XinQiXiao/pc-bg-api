@@ -72,3 +72,8 @@
 					创建第一个 sequelize modal
 
 					导出 models
+
+				c. authService db model 补全
+					access_log
+				
+				d.initLoginUser
