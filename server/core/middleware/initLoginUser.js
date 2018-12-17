@@ -7,7 +7,6 @@ const { info } = require('../../debug')('initLoginUser')
 
 export default (authService, tokenService)=>{
 	return (req, res, next)=>{
-		authService()
 		info('authService=>', authService()) 
 		info('tokenService=>', tokenService()) 
 		next()

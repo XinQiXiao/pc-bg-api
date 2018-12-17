@@ -2,6 +2,8 @@
  * create at 12/14/18
  */
 import Sequelize from 'sequelize'
+import DataTypes from 'sequelize/lib/data-types'
+import _ from 'lodash'
 
 const {info, warning} = require('../../debug')('model-sequelize')
 
@@ -54,11 +56,18 @@ function connection(config, database){
 	connections[database] = db 
 
 	// 测试是否连接成功
-	db.authenticate().then(()=>{
-		info(`${database} connect successfully`)
-	}).catch(err =>{
-		info('Unable to connect to the database:',err)
-	})
+	// db.authenticate().then(()=>{
+	// 	info(`${database} connect successfully`)
+	// }).catch(err =>{
+	// 	info('Unable to connect to the database:',err)
+	// })
+	// set db models
+	let dbmodels = require(`./${database}`)
+	_.mapValues(dbmodels, value=> value(db, DataTypes))
+
+	// TODO setAssociations
+	
+	_.extend(models, db.models)
 }
 
 function init(config){

@@ -10,3 +10,6 @@ npm-debug.log
 # VSCode
 .vscode
 tsconfig.json
+
+# sql
+/sql/models
