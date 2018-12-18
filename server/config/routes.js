@@ -1,31 +1,13 @@
-import express from 'express'
+/**
+ * create at 12/17/18
+ */
+import { routesMiddle } from '../core/middleware'
+import * as Controllers from '../controllers'
 
-let router = express.Router()
+const api = routesMiddle({prefix: 'pc_api', Controllers})
 
-// a middleware sub-stack shows request info for any type of HTTP request to the /user/:id path
-router.use('/user/:id', function (req, res, next) {
-  console.log('Request URL:', req.originalUrl)
-  next()
-}, function (req, res, next) {
-  console.log('Request Type:', req.method)
-  next()
-})
+function routerFun(app){
+  app.use('/', api)
+}
 
-// a middleware sub-stack that handles GET requests to the /user/:id path
-router.get('/user/:id', function (req, res, next) {
-  // if the user ID is 0, skip to the next router
-  if (req.params.id === '0') next('route')
-  // otherwise pass control to the next middleware function in this stack
-  else next()
-}, function (req, res, next) {
-  // render a regular page
-  res.send('regular')
-})
-
-// handler for the /user/:id path, which renders a special page
-router.get('/user/:id', function (req, res, next) {
-  console.log(req.params.id)
-  res.send('special')
-})
-
-export default router
+export default routerFun

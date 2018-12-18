@@ -5,10 +5,10 @@ import configDev from './config.dev'
 import configPrd from './config.prod'
 
 // const
-const { info } = debug('config')
+// const { info } = debug('config')
 
 const config = isDev ? configDev : configPrd
 
-info('config=>', config)
+// info('config=>', config)
 
 module.exports = config

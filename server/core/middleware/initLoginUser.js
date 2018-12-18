@@ -23,18 +23,20 @@ export default (authService, tokenService)=>{
 		req.loginUser.clientIp = req.clientIp 
 		req.isWechat = !!req.headers['user-agent'].match(/MicroMessenger/i)
 
-		const accessLog = {
-			userId: req.loginUser ? (req.loginUser.userId || 0) : 0,
-			requestUri: req.path,
-			request: JSON.stringify(req.body),
-			method: req.method,
-			allowed: 1,
-			clientIp: req.clientIp,
-			headers: JSON.stringify(req.headers)
-		}
-		authService
-		.logAccess(accessLog)
-		.catch(err => warning(`Failed to save access log [${err && err.message}] -`, accessLog))
+		info(' authorized => ', req.authorized)
+		// 记录每次请求
+		// const accessLog = {
+		// 	userId: req.loginUser ? (req.loginUser.userId || 0) : 0,
+		// 	requestUri: req.path,
+		// 	request: JSON.stringify(req.body),
+		// 	method: req.method,
+		// 	allowed: 1,
+		// 	clientIp: req.clientIp,
+		// 	headers: JSON.stringify(req.headers)
+		// }
+		// authService
+		// .logAccess(accessLog)
+		// .catch(err => warning(`Failed to save access log [${err && err.message}] -`, accessLog))
 
 		req.inputs.loginUser = req.loginUser 
 		

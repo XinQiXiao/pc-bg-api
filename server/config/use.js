@@ -6,7 +6,7 @@ import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
 import { argv } from 'yargs'
 
-import router from './routes'
+import routes from './routes'
 import debug from '../debug'
 import { requestPrepare, debugPrepare, initLoginUser,} from '../core/middleware'
 import { tokenService, authService, } from '../service'
@@ -40,7 +40,7 @@ module.exports = function(app){
 
 	app.use(initLoginUser(authService, tokenService))
 
-	// app.use('/', router)
+	routes(app)
 	
 	// catch 404 and forward to error handler
 	app.use(function(req, res, next) {

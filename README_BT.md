@@ -77,3 +77,15 @@
 					access_log
 				
 				d.initLoginUser
+
+		t0.1.0 use routes
+			I. middleware routes
+				controllers bookController
+				routesMiddle 
+
+			II. 修饰器 core decorators
+				route、json、anonymous
+
+			III. /utils/result 
+
+			IIII. 第一个接口 getBookCategorys
