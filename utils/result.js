@@ -3,7 +3,7 @@
  */
 import _ from 'lodash'
 
-const OK = 200 
+const OK = 0 
 
 const UNAUTHORIZED = 401 // 未认证
 

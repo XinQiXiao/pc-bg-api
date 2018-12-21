@@ -7,7 +7,7 @@ const SEC = 1e3 // 1000ms
 const devConfig = {
 	isDev,
 	port: process.env.NODE_PORT || 8095,
-	allow: ['http://localhost:9000','http://localhost:9002','http://127.0.0.1:9000','http://127.0.0.1:9002','http://localhost:9099'],
+	allow: ['http://localhost:3000','http://127.0.0.1:3000'],
 
 	// database
 	book: {

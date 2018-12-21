@@ -89,3 +89,7 @@
 			III. /utils/result 
 
 			IIII. 第一个接口 getBookCategorys
+		
+		t0.1.1
+			兼容 浏览器请求跨域问题
+			返回参数与浏览器返回参数统一
