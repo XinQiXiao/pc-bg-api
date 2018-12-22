@@ -6,12 +6,15 @@ import BaseController from '../BaseController'
 import {db} from '../../service'
 import { route, anonymous, json } from '../../core/decorators'
 import { result } from '../../../utils'
+import Sequelize from 'sequelize'
+
+const Op = Sequelize.Op
 
 // const { info, error } = require('../../debug')('bookController')
 const { resultOK } = result
 
-@json(true)
-@anonymous(true)
+@json
+@anonymous
 @route('pc/book')
 class BookController extends BaseController {
 	constructor(){
@@ -22,7 +25,6 @@ class BookController extends BaseController {
 		super(options)
 	}
 
-	@anonymous
 	async getBookCategorys(inputs){
 		const result = await db.book_category.findAll({
 			attributes: [
@@ -34,6 +36,33 @@ class BookController extends BaseController {
 		})
 
 		return resultOK({data: result})
+	}
+
+	async getAllBookInfo(inputs){
+		const ret = await db.book_info.findOne({
+			attributes: [
+				'book_name',
+				'author',
+				'book_id',
+			],
+			where: {
+				book_id: 20150201
+			},
+			include: [
+				{
+					model: db.book_category,
+					attributes: [
+						'category_id',
+						'category',
+					],
+					as: 'bookCategory',
+					required: false,
+				}
+			],
+			raw: true
+		})
+
+		return resultOK({data: ret})
 	}
 
 }

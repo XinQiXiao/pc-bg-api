@@ -1,4 +1,7 @@
 import { isDev } from '../global'
+import Sequelize from 'sequelize'
+
+const Op = Sequelize.Op
 
 // const
 const SEC = 1e3 // 1000ms
@@ -22,7 +25,8 @@ const prdConfig = {
 		host: '127.0.0.1',
 		database: 'book',
 		user: 'root',
-		password: 'Start2015'
+		password: 'Start2015',
+		operatorsAliases: Op,
 	},
 
 	auth: {
@@ -38,7 +42,8 @@ const prdConfig = {
 		host: '127.0.0.1',
 		database: 'admin_auth',
 		user: 'root',
-		password: 'Start2015'
+		password: 'Start2015',
+		operatorsAliases: Op,
 	}
 }
 

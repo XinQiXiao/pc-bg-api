@@ -93,3 +93,11 @@
 		t0.1.1
 			兼容 浏览器请求跨域问题
 			返回参数与浏览器返回参数统一
+
+		t0.1.2 
+			a. 解决 [sequelize deprecated String based operators are now deprecated. Please use 	Symbol based operators for better security, read more at] 问题
+			http://docs.sequelizejs.com/manual/tutorial/querying.html#operators
+				sequelize 配置里添加 operatorsAliases 参数
+
+		t0.1.3 第一个关联表 
+			sequelize association

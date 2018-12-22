@@ -1,3 +1,6 @@
+# 
+	基于 node exprss 写的 server api 项目
+
 # project
 	pc-bg-api
 	A project of api for pc-bg-app

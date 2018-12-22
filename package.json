@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "server-dev": "DEBUG=*,-babel,-express:*,-sequelize:sql:mysql NODE_ENV=development supervisor -w 'server' -- -r 'babel-register' ./server/bin/www --inline --hot",
+    "server-dev": "DEBUG=*,-babel,-express:* NODE_ENV=development supervisor -w 'server' -- -r 'babel-register' ./server/bin/www --inline --hot",
     "server-prd": "DEBUG=*,-babel,-express:* NODE_ENV=production supervisor -w 'server' -- -r 'babel-register' ./server/bin/www",
     "server-start": "NODE_ENV=development NODE_PORT=8095 node ./server/bin/www"
   },

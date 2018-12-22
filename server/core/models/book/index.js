@@ -3,7 +3,9 @@
  */
 
 import book_category from './book_category'
+import book_info from './book_info'
 
 export {
-	book_category
+	book_category,
+	book_info,
 }

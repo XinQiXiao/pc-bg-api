@@ -40,8 +40,8 @@ export default (authService, tokenService)=>{
 
 		req.inputs.loginUser = req.loginUser 
 		
-		if( !req.authorized )
-			return next()
+		// if( !req.authorized )
+		// 	return next()
  
 		next()
 	}

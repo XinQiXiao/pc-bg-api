@@ -65,14 +65,15 @@ function connection(config, database){
 	let dbmodels = require(`./${database}`)
 	_.mapValues(dbmodels, value=> value(db, DataTypes))
 
-	// TODO setAssociations
+	// setAssociations
+	require(`./${database}/setAssociations`)(db.models)
 	
 	_.extend(models, db.models)
 }
 
 function init(config){
 	connection(config, 'book')
-	connection(config, 'auth')
+	// connection(config, 'auth')
 }
 
 export {
