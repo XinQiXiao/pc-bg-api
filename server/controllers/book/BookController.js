@@ -55,13 +55,42 @@ class BookController extends BaseController {
 						'category_id',
 						'category',
 					],
-					as: 'bookCategory',
+					// as: 'bookCategory',
 					required: false,
 				}
 			],
 			raw: true
 		})
 
+		return resultOK({data: ret})
+	}
+
+	async getKKXteam(){
+		const ret = await db.players.findAll({
+			attributes: [
+				'name',
+				'id',
+				'age',
+				'interest',
+				'team_id'
+			],
+			where: {
+				team_id: 1,
+				id: 1,
+			},
+			include: [
+				{
+					model: db.teams,
+					attributes: [
+						'name',
+						'id',
+						'people_num',
+					],
+					as: 'teams'
+				}
+			],
+			raw: false
+		})
 		return resultOK({data: ret})
 	}
 
