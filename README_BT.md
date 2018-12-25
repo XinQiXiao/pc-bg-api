@@ -102,3 +102,8 @@
 		t0.1.3 第一个关联表 
 			sequelize association
 			query raw: if true,reformat the results.
+
+		t0.1.4 bookInfo/bookCategory 增、“删”、改/ sequelize 事务
+			1. 给 book_info、book_category 增加status 状态
+			2. 修改 book_info book_id 为自增
+			TODO 真假删除

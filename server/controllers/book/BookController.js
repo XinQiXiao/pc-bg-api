@@ -28,10 +28,15 @@ class BookController extends BaseController {
 	async getBookCategorys(inputs){
 		const result = await db.book_category.findAll({
 			attributes: [
-				'category_id',
+				['category_id', 'id'],
 				'category',
 				'parent_id'
 			],
+			where: {
+				status: {
+					[Op.ne]: 0,
+				}
+			},
 			raw: true
 		})
 
@@ -49,6 +54,11 @@ class BookController extends BaseController {
 				'pubdate',
 				'store',
 			],
+			where: {
+				status: {
+					[Op.ne]: 0,
+				}
+			},
 			include: [
 				{
 					model: db.book_category,
@@ -63,6 +73,21 @@ class BookController extends BaseController {
 			raw: false
 		})
 
+		return resultOK({data: ret})
+	}
+
+	async addBook(inputs){
+		const {book_name, author, book_category_id, price, press, pubdate, store} = inputs
+		const ret = await db.book_info.create({
+			book_name,
+			author,
+			book_category_id,
+			price,
+			press,
+			pubdate,
+			store,
+			status: 1,
+		})
 		return resultOK({data: ret})
 	}
 
