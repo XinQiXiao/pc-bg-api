@@ -101,3 +101,4 @@
 
 		t0.1.3 第一个关联表 
 			sequelize association
+			query raw: if true,reformat the results.

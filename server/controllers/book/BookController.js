@@ -39,15 +39,16 @@ class BookController extends BaseController {
 	}
 
 	async getAllBookInfo(inputs){
-		const ret = await db.book_info.findOne({
+		const ret = await db.book_info.findAll({
 			attributes: [
 				'book_name',
 				'author',
-				'book_id',
+				['book_id', 'id'],
+				'price',
+				'press',
+				'pubdate',
+				'store',
 			],
-			where: {
-				book_id: 20150201
-			},
 			include: [
 				{
 					model: db.book_category,
@@ -55,11 +56,11 @@ class BookController extends BaseController {
 						'category_id',
 						'category',
 					],
-					// as: 'bookCategory',
+					as: 'book_category',
 					required: false,
 				}
 			],
-			raw: true
+			raw: false
 		})
 
 		return resultOK({data: ret})
