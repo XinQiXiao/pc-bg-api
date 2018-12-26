@@ -106,4 +106,6 @@
 		t0.1.4 bookInfo/bookCategory 增、“删”、改/ sequelize 事务
 			1. 给 book_info、book_category 增加status 状态
 			2. 修改 book_info book_id 为自增
+			3. book_info 创建
+				a.获取所有子类别 parent_id != 0
 			TODO 真假删除

@@ -25,6 +25,7 @@ class BookController extends BaseController {
 		super(options)
 	}
 
+	// 获取所有图书类别
 	async getBookCategorys(inputs){
 		const result = await db.book_category.findAll({
 			attributes: [
@@ -42,7 +43,28 @@ class BookController extends BaseController {
 
 		return resultOK({data: result})
 	}
+	// 获取子类别图书类别
+	async getBookChildrenCategorys(){
+		const result = await db.book_category.findAll({
+			attributes: [
+				['category_id', 'id'],
+				'category',
+			],
+			where: {
+				status: {
+					[Op.ne]: 0,
+				},
+				parent_id: {
+					[Op.ne]: 0,
+				}
+			},
+			raw: true
+		})
 
+		return resultOK({data: result})
+	}
+
+	// 获取所有图书信息
 	async getAllBookInfo(inputs){
 		const ret = await db.book_info.findAll({
 			attributes: [
