@@ -5,11 +5,16 @@ module.exports = function(sequelize, DataTypes) {
     book_id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
-      primaryKey: true
+      primaryKey: true,
+      autoIncrement: true
     },
     book_category_id: {
       type: DataTypes.INTEGER(11),
       allowNull: true,
+      references: {
+        model: 'book_category',
+        key: 'category_id'
+      }
     },
     book_name: {
       type: DataTypes.STRING(20),
@@ -36,6 +41,11 @@ module.exports = function(sequelize, DataTypes) {
     store: {
       type: DataTypes.INTEGER(11),
       allowNull: false
+    },
+    status: {
+      type: DataTypes.INTEGER(4),
+      allowNull: true,
+      defaultValue: '1'
     }
   }, {
     tableName: 'book_info',

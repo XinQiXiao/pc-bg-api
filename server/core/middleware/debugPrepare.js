@@ -14,10 +14,11 @@ export default (allowOrigins)=> {
 		info('req origin=>', origin)
 
 		if(allowOrigins.indexOf(origin)>-1){
-			res.header('Access-Control-Allow-Origin', origin)
+			// info('req 跨域=>')
+			res.header('Access-Control-Allow-Origin', '*')
 		}
 		res.header('Access-Control-Allow-Credentials', true)
-		res.header("Access-Control-Allow-Headers", "X-Requested-With");
+		res.header("Access-Control-Allow-Headers", "Accept-Encoding, Content-Type, User-Agent");
 		res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS")
 
 		next()

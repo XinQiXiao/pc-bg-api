@@ -10,7 +10,7 @@ import Sequelize from 'sequelize'
 
 const Op = Sequelize.Op
 
-// const { info, error } = require('../../debug')('bookController')
+const { info, error } = require('../../debug')('bookController')
 const { resultOK } = result
 
 @json
@@ -81,6 +81,9 @@ class BookController extends BaseController {
 					[Op.ne]: 0,
 				}
 			},
+			order:[
+				['book_id', 'DESC'],
+			],
 			include: [
 				{
 					model: db.book_category,
@@ -100,6 +103,7 @@ class BookController extends BaseController {
 
 	async addBook(inputs){
 		const {book_name, author, book_category_id, price, press, pubdate, store} = inputs
+		info('addBook inputs=>', inputs)
 		const ret = await db.book_info.create({
 			book_name,
 			author,
@@ -139,7 +143,7 @@ class BookController extends BaseController {
 			],
 			raw: false
 		})
-		return resultOK({data: ret})
+		return resultOK({data: ret.book_id})
 	}
 
 }

@@ -19,12 +19,12 @@ function requestPrepare(){
 		info(' body =>', JSON.stringify(req.body, null, 2))
 
 		// TODO
-		if(req.body && _.isString(req.body.body)){
-			req.body = JSON.parse(req.body.body)
+		if(req.body && _.isString(req.body)){
+			req.body = JSON.parse(req.body)
 		}
 
 		// TODO 
-		req.inputs = {method: req.method, ...req.body, ...req.query}
+		req.inputs = {...req.body}
 
 		req.isPost = ()=> req.method === 'POST'
 
