@@ -101,9 +101,9 @@ class BookController extends BaseController {
 		return resultOK({data: ret})
 	}
 
+	// 添加图书
 	async addBook(inputs){
 		const {book_name, author, book_category_id, price, press, pubdate, store} = inputs
-		info('addBook inputs=>', inputs)
 		const ret = await db.book_info.create({
 			book_name,
 			author,
@@ -114,8 +114,24 @@ class BookController extends BaseController {
 			store,
 			status: 1,
 		})
-		return resultOK({data: ret})
+		return resultOK({data: {book_id: ret.book_id}})
 	}
+
+	// 修改图书信息
+	async modifyBookInfo(inputs){
+		info('modifyBookInfo inputs=>', inputs)
+		const {book_id, ...rest} = inputs
+		const ret = await db.book_info.update({
+			...rest,
+		}, {
+			where: {
+				book_id: {
+					[Op.eq]: book_id,
+				}
+			}
+		})
+		return resultOK({data: {book_id: ret.book_id}})
+	}	
 
 	async getKKXteam(){
 		const ret = await db.players.findAll({
@@ -143,7 +159,7 @@ class BookController extends BaseController {
 			],
 			raw: false
 		})
-		return resultOK({data: ret.book_id})
+		return resultOK({data: ret})
 	}
 
 }

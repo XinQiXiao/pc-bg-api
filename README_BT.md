@@ -103,11 +103,14 @@
 			sequelize association
 			query raw: if true,reformat the results.
 
-		t0.1.4 bookInfo/bookCategory 增、“删”、改/ sequelize 事务
+		t0.1.4 bookInfo 增、“删”、改
 			1. 给 book_info、book_category 增加status 状态
 			2. 修改 book_info book_id 为自增
 			3. 解决浏览器跨域问题，debugPrepare再设置
-			4. book_info 创建
+			4. book_info 创建 create
 				a.获取所有子类别 parent_id != 0
 				b. book_id 倒序
+			5. book_info 修改 update
 			TODO 真假删除
+
+		t0.1.5 bookCategory 增、“删”、改/ sequelize 事务
