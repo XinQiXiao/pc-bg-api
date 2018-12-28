@@ -5,6 +5,9 @@
 	pc-bg-api
 	A project of api for pc-bg-app
 
+# branch && tag
+- [各版本说明文档](README_BT.md)
+
 
 # Start
 	1.git clone https://github.com/XinQiXiao/pc-bg-api.git

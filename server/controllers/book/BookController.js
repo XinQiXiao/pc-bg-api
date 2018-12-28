@@ -2,11 +2,12 @@
  * create at 12/17/18
  */
 import _ from 'lodash'
+import Sequelize from 'sequelize'
+import moment from 'moment'
 import BaseController from '../BaseController'
 import {db} from '../../service'
 import { route, anonymous, json } from '../../core/decorators'
 import { result } from '../../../utils'
-import Sequelize from 'sequelize'
 
 const Op = Sequelize.Op
 
@@ -113,6 +114,7 @@ class BookController extends BaseController {
 			pubdate,
 			store,
 			status: 1,
+			create_time: moment.tz('Asia/Shanghai').valueOf(),
 		})
 		return resultOK({data: {book_id: ret.book_id}})
 	}
@@ -132,6 +134,33 @@ class BookController extends BaseController {
 		})
 		return resultOK({data: {book_id: ret.book_id}})
 	}	
+
+	// 删除图书信息
+	async removeBookInfo(inputs){
+		const {book_id} = inputs
+		// 真删除
+		// const ret = await db.book_info.destroy({
+		// 	where: {
+		// 		book_id: {
+		// 			[Op.eq]: book_id,
+		// 		}
+		// 	}
+		// })
+		// return resultOK({data: {count: ret}})
+
+		// 假删除
+		const ret = await db.book_info.update({
+			status: 0,
+			destroy_time: moment.tz('Asia/Shanghai').valueOf(),
+		}, {
+			where: {
+				book_id: {
+					[Op.eq]: book_id,
+				}
+			}
+		})
+		return resultOK({data: {book_id: ret.book_id}})
+	}
 
 	async getKKXteam(){
 		const ret = await db.players.findAll({

@@ -111,6 +111,12 @@
 				a.获取所有子类别 parent_id != 0
 				b. book_id 倒序
 			5. book_info 修改 update
-			TODO 真假删除
+			6. book_info 删除 
+				a.删除 数据 destroy （真删）
+				b.book_info 表增加上架时间 和下家时间 create_time destroy_time
+					重新生成 book_info model
+					addBook 更新
+				c. 删除 update status （假删）
+			7. 翻页
 
 		t0.1.5 bookCategory 增、“删”、改/ sequelize 事务
