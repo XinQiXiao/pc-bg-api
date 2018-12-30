@@ -67,7 +67,23 @@ class BookController extends BaseController {
 
 	// 获取所有图书信息
 	async getAllBookInfo(inputs){
-		const ret = await db.book_info.findAll({
+		const { page: curPage } = inputs
+		let {page_size = 10, page = 1,} = curPage
+		let result = {}
+
+		const statusOption = {
+			status: {
+				[Op.ne]: 0,
+			}
+		}
+
+		const sumRet = await db.book_info.count({
+			where: {
+				...statusOption,
+			}
+		})
+
+		const listRet = await db.book_info.findAll({
 			attributes: [
 				'book_name',
 				'author',
@@ -78,13 +94,13 @@ class BookController extends BaseController {
 				'store',
 			],
 			where: {
-				status: {
-					[Op.ne]: 0,
-				}
+				...statusOption,
 			},
 			order:[
 				['book_id', 'DESC'],
 			],
+			offset: (page-1)*page_size,
+			limit: page_size,
 			include: [
 				{
 					model: db.book_category,
@@ -99,7 +115,10 @@ class BookController extends BaseController {
 			raw: false
 		})
 
-		return resultOK({data: ret})
+		result.sum = sumRet 
+		result.list = listRet
+
+		return resultOK({data: result})
 	}
 
 	// 添加图书

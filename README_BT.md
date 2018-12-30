@@ -118,5 +118,8 @@
 					addBook 更新
 				c. 删除 update status （假删）
 			7. 翻页
+				book_info 表，获取列表接口支持分页
+
+				资料：https://www.jianshu.com/p/530b98489f9a 关于web 翻页功能截图补充
 
 		t0.1.5 bookCategory 增、“删”、改/ sequelize 事务
