@@ -26,43 +26,102 @@ class BookController extends BaseController {
 		super(options)
 	}
 
-	// 获取所有图书类别
+	// 获取图书类别
 	async getBookCategorys(inputs){
-		const result = await db.book_category.findAll({
-			attributes: [
-				['category_id', 'id'],
-				'category',
-				'parent_id'
-			],
-			where: {
+		// type 0 全部    1 父类别    2子类别
+		const {type = 0} = inputs
+		let parentOptions = {}, statusOptions = {}
+		if(type === 1){
+			parentOptions = {
+				parent_id: {
+					[Op.eq]: 0,
+				}
+			}
+			statusOptions = {
 				status: {
 					[Op.ne]: 0,
 				}
-			},
-			raw: true
-		})
-
-		return resultOK({data: result})
-	}
-	// 获取子类别图书类别
-	async getBookChildrenCategorys(){
-		const result = await db.book_category.findAll({
-			attributes: [
-				['category_id', 'id'],
-				'category',
-			],
-			where: {
-				status: {
-					[Op.ne]: 0,
-				},
+			}
+		}
+		if(type === 2){
+			parentOptions = {
 				parent_id: {
 					[Op.ne]: 0,
 				}
+			}
+			statusOptions = {
+				status: {
+					[Op.ne]: 0,
+				}
+			}
+		}
+		const result = await db.book_category.findAll({
+			attributes: [
+				['category_id', 'id'],
+				'category',
+				'parent_id',
+				'status',
+				'create_time',
+				'update_time',
+				'destroy_time',
+			],
+			where: {
+				...statusOptions,
+				...parentOptions,
 			},
 			raw: true
 		})
 
+		if(type === 1){
+			// 获取父类别增加 默认类别
+			result.unshift({
+				id: 0,
+				category: '(自己是父类别)'
+			})
+		}
+
 		return resultOK({data: result})
+	}
+	// 创建类别
+	async addCategory(inputs){
+		const {category, parent_id} = inputs
+		const result = await db.book_category.create({
+			category,
+			parent_id,
+			status: 1,
+			create_time: moment.tz('Asia/Shanghai').valueOf(),
+		})
+
+		return resultOK({data: {category_id: result.category_id}})
+	}
+	// 类别上架、下架
+	async handleCategory(inputs){
+		const {category_id, type} = inputs
+		// type 1 上架 2 下架
+		let timeOptions = {}
+		if(type === 2){
+			timeOptions = {
+				destroy_time: moment.tz('Asia/Shanghai').valueOf()
+			}
+		} 
+		if(type === 1){
+			timeOptions = {
+				update_time: moment.tz('Asia/Shanghai').valueOf()
+			}
+		}
+		
+		const result = await db.book_category.update({
+			...timeOptions,
+			status: type === 2 ? 0 : 1,
+		}, {
+			where: {
+				category_id: {
+					[Op.eq]: category_id
+				}
+			}
+		})
+
+		return resultOK({data: {count: result.length}})
 	}
 
 	// 获取所有图书信息
@@ -73,7 +132,7 @@ class BookController extends BaseController {
 
 		const statusOption = {
 			status: {
-				[Op.ne]: 0,
+				[Op.gte]: 30,
 			}
 		}
 
@@ -120,7 +179,6 @@ class BookController extends BaseController {
 
 		return resultOK({data: result})
 	}
-
 	// 添加图书
 	async addBook(inputs){
 		const {book_name, author, book_category_id, price, press, pubdate, store} = inputs
@@ -132,15 +190,13 @@ class BookController extends BaseController {
 			press,
 			pubdate,
 			store,
-			status: 1,
+			status: 30,
 			create_time: moment.tz('Asia/Shanghai').valueOf(),
 		})
 		return resultOK({data: {book_id: ret.book_id}})
 	}
-
 	// 修改图书信息
 	async modifyBookInfo(inputs){
-		info('modifyBookInfo inputs=>', inputs)
 		const {book_id, ...rest} = inputs
 		const ret = await db.book_info.update({
 			...rest,
@@ -151,9 +207,8 @@ class BookController extends BaseController {
 				}
 			}
 		})
-		return resultOK({data: {book_id: ret.book_id}})
+		return resultOK({data: {count: ret.length}})
 	}	
-
 	// 删除图书信息
 	async removeBookInfo(inputs){
 		const {book_id} = inputs
@@ -169,7 +224,7 @@ class BookController extends BaseController {
 
 		// 假删除
 		const ret = await db.book_info.update({
-			status: 0,
+			status: 9,
 			destroy_time: moment.tz('Asia/Shanghai').valueOf(),
 		}, {
 			where: {
@@ -178,36 +233,7 @@ class BookController extends BaseController {
 				}
 			}
 		})
-		return resultOK({data: {book_id: ret.book_id}})
-	}
-
-	async getKKXteam(){
-		const ret = await db.players.findAll({
-			attributes: [
-				'name',
-				'id',
-				'age',
-				'interest',
-				'team_id'
-			],
-			where: {
-				team_id: 1,
-				id: 1,
-			},
-			include: [
-				{
-					model: db.teams,
-					attributes: [
-						'name',
-						'id',
-						'people_num',
-					],
-					as: 'teams'
-				}
-			],
-			raw: false
-		})
-		return resultOK({data: ret})
+		return resultOK({data: {count: ret.length}})
 	}
 
 }

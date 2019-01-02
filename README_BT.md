@@ -123,3 +123,16 @@
 				资料：https://www.jianshu.com/p/530b98489f9a 关于web 翻页功能截图补充
 
 		t0.1.5 bookCategory 增、“删”、改/ sequelize 事务
+			1.增加类别
+				a.获取图书类别接口 兼容获取父类别和子类别
+				b. book_category 表 增加create_time, modify_time, destroy_time
+				c. 修改 book_info 表 status 信息
+					修改完的 status 0~9 book 内部信息(未上架) 9 书自身下架
+												 30 上架
+												 10~29 其他原因导致未上架
+					I.先更新已有信息 1 -> 30 0-> 9
+
+			2. 类别上架/下架 （暂时不允许父类别，上架/下架）
+				
+			3. TODO  上架/下架子类别，先下架是子类别的图书(支持事务)
+				

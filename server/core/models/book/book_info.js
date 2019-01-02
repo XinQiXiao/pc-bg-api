@@ -44,8 +44,8 @@ module.exports = function(sequelize, DataTypes) {
     },
     status: {
       type: DataTypes.INTEGER(4),
-      allowNull: true,
-      defaultValue: '1'
+      allowNull: false,
+      defaultValue: '30'
     },
     create_time: {
       type: DataTypes.BIGINT,
