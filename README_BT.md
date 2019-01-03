@@ -134,5 +134,8 @@
 
 			2. 类别上架/下架 （暂时不允许父类别，上架/下架）
 				
-			3. TODO  上架/下架子类别，先下架是子类别的图书(支持事务)
+			3. 上架/下架子类别，先下架是子类别的图书(支持事务)
+				a. book_info 表增加 update_time 字段 修改对应接口(下架用 destroy_time 上架和修改用 update_time)
+				修改图书信息 接口增加 update_time 修改时间
+			4. TODO sequelize事务 transaction需要现在 book pool 开启至少两个链接，查找原因
 				

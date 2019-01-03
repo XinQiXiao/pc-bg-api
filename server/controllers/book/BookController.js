@@ -94,39 +94,80 @@ class BookController extends BaseController {
 
 		return resultOK({data: {category_id: result.category_id}})
 	}
-	// 类别上架、下架
-	async handleCategory(inputs){
-		const {category_id, type} = inputs
-		// type 1 上架 2 下架
-		let timeOptions = {}
-		if(type === 2){
-			timeOptions = {
-				destroy_time: moment.tz('Asia/Shanghai').valueOf()
-			}
-		} 
-		if(type === 1){
-			timeOptions = {
-				update_time: moment.tz('Asia/Shanghai').valueOf()
-			}
+	// 类别上架
+	async putAwayCategory(inputs){
+		try{
+			const {category_id} = inputs
+			await db.sequelize.book.transaction(async t=>{
+				// 1.更新 book_info 
+				await db.book_info.update({
+					status: 30,
+					update_time: moment.tz('Asia/Shanghai').valueOf(),
+				}, {
+					where: {
+						book_category_id: {
+							[Op.eq]: category_id
+						}
+					}
+				}, {transaction: t})
+				await db.book_category.update({
+					status: 1,
+					update_time: moment.tz('Asia/Shanghai').valueOf(),
+				}, {
+					where: {
+						category_id: {
+							[Op.eq]: category_id
+						}
+					}
+				}, {transaction: t})
+			})
+			
+			return resultOK({data: '上架成功'})
+		}catch(e){
+			error(e)
+			throw new Error(`图书类别上架操作失败`)
 		}
-		
-		const result = await db.book_category.update({
-			...timeOptions,
-			status: type === 2 ? 0 : 1,
-		}, {
-			where: {
-				category_id: {
-					[Op.eq]: category_id
-				}
-			}
-		})
-
-		return resultOK({data: {count: result.length}})
+	}
+	// 类别下架
+	async soldOutCategory(inputs){
+		try{
+			const {category_id} = inputs
+			await db.sequelize.book.transaction(async t=>{
+				// 1.更新 book_info
+				await db.book_info.update({
+					status: 19,
+					destroy_time: moment.tz('Asia/Shanghai').valueOf(),
+				}, {
+					where: {
+						book_category_id: {
+							[Op.eq]: category_id
+						}
+					}
+				}, {transaction: t})
+				// 2.更新 book_category
+				await db.book_category.update({
+					status: 0,
+					destroy_time: moment.tz('Asia/Shanghai').valueOf(),
+				}, {
+					where: {
+						category_id: {
+							[Op.eq]: category_id
+						}
+					}
+				}, {transaction: t})
+			})
+			
+			return resultOK({data: '下架成功'})
+		}catch(e){
+			error(e)
+			throw new Error(`图书类别下架操作失败`)
+		}
 	}
 
 	// 获取所有图书信息
 	async getAllBookInfo(inputs){
 		const { page: curPage } = inputs
+		info('getAllBookInfo inputs=>', inputs)
 		let {page_size = 10, page = 1,} = curPage
 		let result = {}
 
@@ -200,6 +241,7 @@ class BookController extends BaseController {
 		const {book_id, ...rest} = inputs
 		const ret = await db.book_info.update({
 			...rest,
+			update_time: moment.tz('Asia/Shanghai').valueOf(),
 		}, {
 			where: {
 				book_id: {

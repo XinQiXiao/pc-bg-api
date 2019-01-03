@@ -52,6 +52,11 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       defaultValue: '0'
     },
+    update_time: {
+      type: DataTypes.BIGINT,
+      allowNull: false,
+      defaultValue: '0'
+    },
     destroy_time: {
       type: DataTypes.BIGINT,
       allowNull: false,

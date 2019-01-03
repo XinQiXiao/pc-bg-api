@@ -29,9 +29,10 @@ CREATE TABLE `book_info` (
   `store` int(11) NOT NULL,
   `status` tinyint(4) NOT NULL DEFAULT '30' COMMENT '9书自身下架 19由于类别下架导致下架 30上架',
   `create_time` bigint(20) NOT NULL DEFAULT '0' COMMENT '记录创建时间，单位：毫秒',
+  `update_time` bigint(20) NOT NULL DEFAULT '0' COMMENT '记录更新时间',
   `destroy_time` bigint(20) NOT NULL DEFAULT '0' COMMENT '记录下架时间，单位：毫秒',
   PRIMARY KEY (`book_id`),
   UNIQUE KEY `book_name` (`book_name`),
   KEY `fk_bcid` (`book_category_id`),
   CONSTRAINT `fk_bcid` FOREIGN KEY (`book_category_id`) REFERENCES `book_category` (`category_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20170062 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20170063 DEFAULT CHARSET=utf8;

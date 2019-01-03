@@ -20,7 +20,7 @@ const devConfig = {
 			acquire: 3 * SEC,
 			evict: 10.1 * SEC,
 			idle: 30 * SEC,
-			max: 1,
+			max: 2,
 			min: 0,
 		},
 		host: '127.0.0.1',
