@@ -56,6 +56,8 @@ async function _callRequestHandler({Controller, attrs, handler, req, res, next})
 }
 
 function routes({prefix, Controllers}){
+
+	// info('Controllers=>', Controllers)
 	const router = express.Router()
 
 	const createRoutePath = (p, controllerPath) => {
@@ -68,6 +70,7 @@ function routes({prefix, Controllers}){
 		
 		const {path: controllerPath} = Controller
 		const instance = new (Controller.__esModule ? Controller.default : Controller)()
+		// info('instance=>', instance)
 
 		if(controllerPath){
 			const routePath = createRoutePath(`${controllerPath}/:method`)

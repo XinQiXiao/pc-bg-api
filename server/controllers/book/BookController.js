@@ -18,13 +18,6 @@ const { resultOK } = result
 @anonymous
 @route('pc/book')
 class BookController extends BaseController {
-	constructor(){
-		const options = {
-			model: 'book_category'
-		}
-
-		super(options)
-	}
 
 	// 获取图书类别
 	async getBookCategorys(inputs){

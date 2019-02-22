@@ -138,4 +138,11 @@
 				a. book_info 表增加 update_time 字段 修改对应接口(下架用 destroy_time 上架和修改用 update_time)
 				修改图书信息 接口增加 update_time 修改时间
 			4. TODO sequelize事务 transaction需要现在 book pool 开启至少两个链接，查找原因
+
+		t0.1.6 后台 -- 员工管理
+			1.导入 auth user model/ authCity model
+			2.创建 userController
+				获取员工列表接口
+				创建员工接口
+				编辑员工接口
 				

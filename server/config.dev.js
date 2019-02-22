@@ -41,7 +41,7 @@ const devConfig = {
 			min: 0,
 		},
 		host: '127.0.0.1',
-		database: 'admin_auth',
+		database: 'auth',
 		user: 'root',
 		password: 'Start2015',
 		operatorsAliases: Op,
