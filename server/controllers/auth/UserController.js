@@ -4,6 +4,7 @@
 
 import Sequelize from 'sequelize'
 import moment from 'moment'
+import _ from 'lodash'
 import BaseController from '../BaseController'
 import { route, anonymous, json } from '../../core/decorators'
 import {db} from '../../service'
@@ -14,7 +15,7 @@ import { md5Utils } from '../../utils'
 const { info, error } = require('../../debug')('userController')
 
 const Op = Sequelize.Op
-const { resultOK } = result
+const { AUTH_USER_ALREADY_EXIST, resultOK, resultError, } = result
 const { encryptHash, getSalt, } = md5Utils
 
 @json(true)
@@ -55,6 +56,21 @@ class UserController extends BaseController{
 			login_name, display_name, email, password, mobile, status, city_id,
 			loginUser
 		} = inputs
+		// 检查登录名是否重复
+		const retFind = await db.user.findOne({
+			attributes: [
+				'id',
+			],
+			where: {
+				login_name: {
+					[Op.eq]: login_name
+				}
+			}
+		}) 
+
+		if(!_.isNil(retFind) && !_.isNil(retFind.id) && retFind.id >0)
+			return resultError({code: AUTH_USER_ALREADY_EXIST, err: '登录名不能重复'})
+		
 		// 生成 salt password_hashed
 		const salt = getSalt()
 		const password_hashed = encryptHash(`${password}${salt}`)
@@ -78,6 +94,37 @@ class UserController extends BaseController{
 	}
 
 	// 修改员工
+	async modifyEmployee(inputs){
+		const {
+			id, login_name, display_name, email, reset_password = false, password, mobile, status, city_id,
+		} = inputs
+
+		const passwordObj = {}
+
+		if(reset_password){
+			passwordObj.salt = getSalt()
+			passwordObj.password_hashed = encryptHash(`${password}${passwordObj.salt}`)
+		}
+
+		const ret = await db.user.update({
+			login_name,
+			display_name,
+			email,
+			mobile,
+			status,
+			city_id,
+			...passwordObj,
+		}, {
+			where: {
+				id: {
+					[Op.eq]: id
+				}
+			}
+		})
+
+		return resultOK({data: ret})
+	}
+
 
 }
 
