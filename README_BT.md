@@ -150,3 +150,7 @@
 		t0.1.6.1 
 			morgan 漏洞升级
 			说明 url:https://nvd.nist.gov/vuln/detail/CVE-2019-5413
+
+		t0.1.6.2
+			sequelize 漏洞更新
+			链接 https://nvd.nist.gov/vuln/detail/CVE-2019-11069

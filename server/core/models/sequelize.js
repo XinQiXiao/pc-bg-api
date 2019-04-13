@@ -32,15 +32,15 @@ function createDatabase(config, modelAlias = ''){
 
 	// override default `softIdleTimeoutMillis` to make sure `idleTimeoutMillis` works
 	// https://github.com/coopernurse/node-pool/issues/192
-	db.connectionManager.pool._config.softIdleTimeoutMillis = Infinity
+	// db.connectionManager.pool._config.softIdleTimeoutMillis = Infinity
 
 	// 打印数据库连接数情况
-	const originalPoolFactoryDestroy = db.connectionManager.pool._factory.destroy
-	db.connectionManager.pool._factory.destroy = (...args) => originalPoolFactoryDestroy(...args)
-		.tap(() => info(poolStatsKeys.reduce(
-			(msg, k) => msg += `${k}=${db.connectionManager.pool[k]}   `,
-			`[pool:${modelAlias}] `
-		)))
+	// const originalPoolFactoryDestroy = db.connectionManager.pool._factory.destroy
+	// db.connectionManager.pool._factory.destroy = (...args) => originalPoolFactoryDestroy(...args)
+	// 	.tap(() => info(poolStatsKeys.reduce(
+	// 		(msg, k) => msg += `${k}=${db.connectionManager.pool[k]}   `,
+	// 		`[pool:${modelAlias}] `
+	// 	)))
 
 	return db
 }
